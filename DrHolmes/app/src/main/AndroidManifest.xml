@@ -8,9 +8,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
 
     <application
         android:usesCleartextTraffic="true"
@@ -47,6 +50,10 @@
 
         <activity
             android:name=".setting.SettingActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".device.DeviceScanActivity"
             android:exported="true">
         </activity>
 
