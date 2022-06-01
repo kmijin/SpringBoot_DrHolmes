@@ -7,13 +7,13 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import com.pillgood.drholmes.check.CheckActivity;
 import com.pillgood.drholmes.device.DeviceActivity;
 import com.pillgood.drholmes.home.HomeActivity;
 import com.pillgood.drholmes.info.InfoDiseaseActivity;
 import com.pillgood.drholmes.map.MapActivity;
-import com.pillgood.drholmes.map.hospital.MapHospitalActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
