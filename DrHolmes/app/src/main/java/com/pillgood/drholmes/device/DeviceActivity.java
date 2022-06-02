@@ -164,9 +164,14 @@ public class DeviceActivity extends Fragment {
         connectBtn.setOnClickListener(cl);
 
 
-        final Intent intent = getActivity().getIntent();
-        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        if (this.getArguments() != null) {
+            mDeviceName = this.getArguments().getString("device_name");
+            mDeviceAddress = this.getArguments().getString("device_address");
+        }
+
+//        final Intent intent = getActivity().getIntent();
+//        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
+//        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
         // Sets up UI references.
         ((TextView) view.findViewById(R.id.device_name)).setText(mDeviceAddress);
