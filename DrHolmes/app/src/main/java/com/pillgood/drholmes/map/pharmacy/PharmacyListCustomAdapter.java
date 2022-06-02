@@ -40,7 +40,7 @@ public class PharmacyListCustomAdapter extends RecyclerView.Adapter<PharmacyList
     @Override   // ViewHolder 객체를 생성하여 리턴한다.
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.hospital_list_recycle_item, parent, false);
+                .inflate(R.layout.pharmacy_list_recycle_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
