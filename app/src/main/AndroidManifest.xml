@@ -20,6 +20,11 @@
         <activity android:name=".start.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
+
+        </activity>
+
+        <activity android:name=".start.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
