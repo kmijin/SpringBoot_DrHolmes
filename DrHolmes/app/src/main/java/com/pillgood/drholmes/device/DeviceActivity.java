@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.os.IBinder;
 import android.util.Log;
@@ -34,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DeviceActivity extends Fragment {
+
+    View view;
 
     private final static String TAG = "DeviceActivity";
 
@@ -147,7 +150,7 @@ public class DeviceActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_device, container, false);
+        view = inflater.inflate(R.layout.activity_device, container, false);
         connectBtn = view.findViewById(R.id.connect_btn);
 
         cl = new View.OnClickListener() {
@@ -155,26 +158,23 @@ public class DeviceActivity extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.connect_btn:
-                        Intent i = new Intent(getActivity().getApplicationContext(), DeviceScanActivity.class);
-                        startActivity(i);
+                        getParentFragmentManager().beginTransaction().replace(R.id.main_frame, new DeviceScanActivity()).commit();
                         break;
                 }
             }
         };
         connectBtn.setOnClickListener(cl);
 
-
-        if (this.getArguments() != null) {
-            mDeviceName = this.getArguments().getString("device_name");
-            mDeviceAddress = this.getArguments().getString("device_address");
-        }
-
-//        final Intent intent = getActivity().getIntent();
-//        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-//        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        getParentFragmentManager().setFragmentResultListener("device_selected", getActivity(), new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                mDeviceName = bundle.getString("device_name");
+                mDeviceAddress = bundle.getString("device_address");
+            }
+        });
 
         // Sets up UI references.
-        ((TextView) view.findViewById(R.id.device_name)).setText(mDeviceAddress);
+        ((TextView) view.findViewById(R.id.device_name)).setText(mDeviceName);
         mGattServicesList = (ExpandableListView) view.findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) view.findViewById(R.id.device_connection_state);
