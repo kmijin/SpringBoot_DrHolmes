@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface JSONRetrofitAPI {
-    String baseURL = "http://54.180.142.226:8080/";
+    String baseURL = "http://43.200.60.75:8080/";
 
     @GET("drHomesUser")
     Call<List<Post>> getUser();

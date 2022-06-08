@@ -15,16 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.pillgood.drholmes.MainActivity;
 import com.pillgood.drholmes.R;
 import com.pillgood.drholmes.api.JSONRetrofitAPI;
-import com.pillgood.drholmes.api.RetrofitAPI;
 import com.pillgood.drholmes.api.login.Post;
-import com.pillgood.drholmes.api.pill.Pharmacy;
 
-import java.text.BreakIterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -94,7 +90,7 @@ public class LoginActivity extends Activity {
     public void LoginResponse(String id, String pw) {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://15.164.96.44:8080/")
+                .baseUrl("http://43.200.60.75:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -1,5 +1,6 @@
 package com.pillgood.drholmes.start;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends Activity {
     private Retrofit retrofit;
 
     @Override
@@ -94,7 +95,7 @@ public class JoinActivity extends AppCompatActivity {
     public void LoginResponse(String id, String pw) {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://15.164.96.44:8080/")
+                .baseUrl("http://43.200.60.75:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
