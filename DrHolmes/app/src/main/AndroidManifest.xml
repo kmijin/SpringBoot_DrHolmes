@@ -67,7 +67,9 @@
             android:exported="true">
         </activity>
 
-<!--        test-->
+        <service android:name=".device.BluetoothLeService" android:enabled="true">
+
+        </service>
 
     </application>
 
