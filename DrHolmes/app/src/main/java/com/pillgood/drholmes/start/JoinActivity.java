@@ -19,11 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pillgood.drholmes.MainActivity;
 import com.pillgood.drholmes.R;
 import com.pillgood.drholmes.api.JSONRetrofitAPI;
-import com.pillgood.drholmes.api.RetrofitAPI;
 import com.pillgood.drholmes.api.login.Post;
-import com.pillgood.drholmes.api.pill.Pharmacy;
 
-import java.text.BreakIterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,50 +29,44 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity {
-    //retrofit 관련
-    Retrofit retrofit;
-    JSONRetrofitAPI service;
-    List<Post> posts;
-
+public class JoinActivity extends AppCompatActivity {
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_join);
 
-        EditText idText, passwordText;
-        CheckBox checkBox;
-        Button btn_login, btn_join;
+        Button join, del;
+        EditText email, name, password;
+        CheckBox gender_man, gender_woman, emailagree;
 
+        join = (Button) findViewById(R.id.btn_join);
+        del = (Button) findViewById(R.id.cancel);
+        email = (EditText) findViewById(R.id.join_email);
+        name = (EditText) findViewById(R.id.join_name);
+        password = (EditText) findViewById(R.id.join_password);
+        gender_man = (CheckBox) findViewById(R.id.man);
+        gender_woman = (CheckBox) findViewById(R.id.woman);
+        emailagree = (CheckBox) findViewById(R.id.emailagree);
 
-        //뒤로 가기 버튼 2번 클릭시 종료
-        //backPressCloseHandler = new BackPressCloseHandler(this);
-
-        idText = (EditText) findViewById(R.id.insert_id);
-        passwordText = (EditText) findViewById(R.id.insert_password);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        btn_join = (Button) findViewById(R.id.btn_join);
-        //checkBox = (CheckBox) findViewById(R.id.autoLogin);
-
-        //자동 로그인을 선택한 유저
-
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        join.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                String id = idText.getText().toString();
-                String pw = passwordText.getText().toString();
+                String id = email.getText().toString();
+                String pw = password.getText().toString();
+                String n = name.getText().toString();
                 //hideKeyboard();
 
                 //로그인 정보 미입력 시
-                if (id.trim().length() == 0 || pw.trim().length() == 0 || id == null || pw == null) {
+                if (id.trim().length() == 0 || pw.trim().length() == 0 || n.trim().length() == 0
+                        || id == null || pw == null || n == null) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(join.getContext());
                     builder.setTitle("알림")
-                            .setMessage("로그인 정보를 입력바랍니다.")
+                            .setMessage("회원가입 정보를 입력바랍니다.")
                             .setPositiveButton("확인", null)
                             .create()
                             .show();
@@ -88,6 +79,16 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 
     public void LoginResponse(String id, String pw) {
@@ -97,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        service = retrofit.create(JSONRetrofitAPI.class);
+        JSONRetrofitAPI service = retrofit.create(JSONRetrofitAPI.class);
 
         //loginRequest에 사용자가 입력한 id와 pw를 저장
         Post post = new Post(
@@ -115,11 +116,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(LoginActivity.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Toast.makeText(JoinActivity.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(JoinActivity.this, MainActivity.class);
                     intent.putExtra("userId", id);
                     startActivity(intent);
-                    LoginActivity.this.finish();
+                    JoinActivity.this.finish();
 
 //                    //response.body()를 result에 저장
 //                    Post result = response.body();
@@ -185,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
             //통신 실패
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(JoinActivity.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
@@ -195,32 +196,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    //데이터를 내부 저장소에 저장하기
-    public void setPreference(String key, String value){
-        SharedPreferences pref = getSharedPreferences(DATA_STORE, MODE_PRIVATE);
-        //getRetrofitInterface
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
 
-    //내부 저장소에 저장된 데이터 가져오기
-    public String getPreferenceString(String key) {
-        SharedPreferences pref = getSharedPreferences(DATA_STORE, MODE_PRIVATE);
-        return pref.getString(key, "");
-    }
-*/
-
-    /*
-        //키보드 숨기기
-        private void hideKeyboard()
-        {
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(idText.getWindowToken(), 0);
-            imm.hideSoftInputFromWindow(passwordText.getWindowToken(), 0);
-        }
-    */
     //화면 터치 시 키보드 내려감
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -237,15 +213,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    //자동 로그인 유저
-    public void checkAutoLogin(String id){
-
-        //Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 }
