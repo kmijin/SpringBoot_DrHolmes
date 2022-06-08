@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.pillgood.drholmes.R;
 
@@ -62,12 +63,13 @@ public class DeviceScanActivity extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("device_name", device.getName());
                 bundle.putString("device_address", device.getAddress());
-                getParentFragmentManager().setFragmentResult("device_selected", bundle);
                 if (mScanning) {
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
                     mScanning = false;
                 }
-                getParentFragmentManager().beginTransaction().replace(R.id.main_frame, new DeviceActivity()).commit();
+                FragmentManager frag = getParentFragmentManager();
+                frag.setFragmentResult("device_selected", bundle);
+                frag.beginTransaction().replace(R.id.main_frame, new DeviceActivity()).commit();
             }
         });
 
