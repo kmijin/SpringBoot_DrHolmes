@@ -67,6 +67,8 @@
             android:exported="true">
         </activity>
 
+<!--        test-->
+
     </application>
 
 </manifest>
