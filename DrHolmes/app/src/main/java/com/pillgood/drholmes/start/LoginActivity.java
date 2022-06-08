@@ -1,5 +1,6 @@
 package com.pillgood.drholmes.start;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
     //retrofit 관련
     Retrofit retrofit;
     JSONRetrofitAPI service;

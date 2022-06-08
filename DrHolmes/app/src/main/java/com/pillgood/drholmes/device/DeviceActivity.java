@@ -11,8 +11,9 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.os.IBinder;
 import android.util.Log;
@@ -35,10 +36,9 @@ import java.util.List;
 
 public class DeviceActivity extends Fragment {
 
-    private final static String TAG = "DeviceActivity";
+    View view;
 
-    public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
-    public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
+    private final static String TAG = "DeviceActivity";
 
     private TextView mConnectionState;
     private TextView mDataField;
@@ -66,6 +66,7 @@ public class DeviceActivity extends Fragment {
             }
             // Automatically connects to the device upon successful start-up initialization.
             mBluetoothLeService.connect(mDeviceAddress);
+            Log.e(TAG, "test:   "+mDeviceAddress);
         }
 
         @Override
@@ -147,7 +148,8 @@ public class DeviceActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_device, container, false);
+        view = inflater.inflate(R.layout.activity_device, container, false);
+
         connectBtn = view.findViewById(R.id.connect_btn);
 
         cl = new View.OnClickListener() {
@@ -155,33 +157,32 @@ public class DeviceActivity extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.connect_btn:
-                        Intent i = new Intent(getActivity().getApplicationContext(), DeviceScanActivity.class);
-                        startActivity(i);
+                        getParentFragmentManager().beginTransaction().replace(R.id.main_frame, new DeviceScanActivity()).commit();
                         break;
                 }
             }
         };
         connectBtn.setOnClickListener(cl);
 
-
-        if (this.getArguments() != null) {
-            mDeviceName = this.getArguments().getString("device_name");
-            mDeviceAddress = this.getArguments().getString("device_address");
-        }
-
-//        final Intent intent = getActivity().getIntent();
-//        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-//        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
-
         // Sets up UI references.
-        ((TextView) view.findViewById(R.id.device_name)).setText(mDeviceAddress);
+//        ((TextView) view.findViewById(R.id.device_selected_name)).setText(mDeviceName);
         mGattServicesList = (ExpandableListView) view.findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) view.findViewById(R.id.device_connection_state);
         mDataField = (TextView) view.findViewById(R.id.thu_pill);
 
-        Intent gattServiceIntent = new Intent(getActivity(), BluetoothLeService.class);
-        getActivity().bindService(gattServiceIntent, mServiceConnection, getActivity().BIND_AUTO_CREATE);
+        getParentFragmentManager().setFragmentResultListener("device_selected", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                mDeviceName = bundle.getString("device_name");
+                mDeviceAddress = bundle.getString("device_address");
+                Log.e(TAG, mDeviceName);
+                ((TextView) view.findViewById(R.id.device_selected_name)).setText(mDeviceName);
+                Log.e(TAG, getActivity()==null?"null":"not null");
+                Intent gattServiceIntent = new Intent(getActivity(), BluetoothLeService.class);
+                getActivity().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+            }
+        });
 
         return view;
     }
@@ -205,8 +206,10 @@ public class DeviceActivity extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unbindService(mServiceConnection);
-        mBluetoothLeService = null;
+        if (mBluetoothLeService != null) {
+            getActivity().unbindService(mServiceConnection);
+            mBluetoothLeService = null;
+        }
     }
 
     @Override
@@ -295,18 +298,18 @@ public class DeviceActivity extends Fragment {
             gattCharacteristicData.add(gattCharacteristicGroupData);
         }
 
-        SimpleExpandableListAdapter gattServiceAdapter = new SimpleExpandableListAdapter(
-                getActivity(),
-                gattServiceData,
-                android.R.layout.simple_expandable_list_item_2,
-                new String[] {LIST_NAME, LIST_UUID},
-                new int[] { android.R.id.text1, android.R.id.text2 },
-                gattCharacteristicData,
-                android.R.layout.simple_expandable_list_item_2,
-                new String[] {LIST_NAME, LIST_UUID},
-                new int[] { android.R.id.text1, android.R.id.text2 }
-        );
-        mGattServicesList.setAdapter(gattServiceAdapter);
+//        SimpleExpandableListAdapter gattServiceAdapter = new SimpleExpandableListAdapter(
+//                getActivity(),
+//                gattServiceData,
+//                android.R.layout.simple_expandable_list_item_2,
+//                new String[] {LIST_NAME, LIST_UUID},
+//                new int[] { android.R.id.text1, android.R.id.text2 },
+//                gattCharacteristicData,
+//                android.R.layout.simple_expandable_list_item_2,
+//                new String[] {LIST_NAME, LIST_UUID},
+//                new int[] { android.R.id.text1, android.R.id.text2 }
+//        );
+//        mGattServicesList.setAdapter(gattServiceAdapter);
     }
 
     private static IntentFilter makeGattUpdateIntentFilter() {
