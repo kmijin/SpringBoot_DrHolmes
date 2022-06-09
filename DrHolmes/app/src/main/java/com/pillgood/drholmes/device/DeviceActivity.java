@@ -42,6 +42,7 @@ public class DeviceActivity extends Fragment {
 
     private TextView mConnectionState;
     private TextView mDataField;
+    private TextView mDataView;
     private String mDeviceName;
     private String mDeviceAddress;
     private ExpandableListView mGattServicesList;
@@ -66,7 +67,6 @@ public class DeviceActivity extends Fragment {
             }
             // Automatically connects to the device upon successful start-up initialization.
             mBluetoothLeService.connect(mDeviceAddress);
-            Log.e(TAG, "test:   "+mDeviceAddress);
         }
 
         @Override
@@ -89,16 +89,20 @@ public class DeviceActivity extends Fragment {
                 mConnected = true;
                 updateConnectionState("Connected");
                 getActivity().invalidateOptionsMenu();
+                Log.e("CONNECTED", "OK");
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
                 updateConnectionState("Disconnected");
                 getActivity().invalidateOptionsMenu();
                 clearUI();
+                Log.e("DISCONNECTED", "OK");
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                Log.e("SERVICES DISCOVERED", "OK");
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                Log.e("DATA AVAILABLE", "OK");
             }
         }
     };
@@ -113,8 +117,10 @@ public class DeviceActivity extends Fragment {
                 public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                             int childPosition, long id) {
                     if (mGattCharacteristics != null) {
+//                        final BluetoothGattCharacteristic characteristic =
+//                                mGattCharacteristics.get(groupPosition).get(childPosition);
                         final BluetoothGattCharacteristic characteristic =
-                                mGattCharacteristics.get(groupPosition).get(childPosition);
+                                mGattCharacteristics.get(2).get(0);
                         final int charaProp = characteristic.getProperties();
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                             // If there is an active notification on a characteristic, clear
@@ -139,10 +145,12 @@ public class DeviceActivity extends Fragment {
 
     private void clearUI() {
         mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
-        mDataField.setText("No data");
+//        mDataField.setText("No data");
+        mDataView.setText("No data");
     }
 
     Button connectBtn;
+    Button dataBtn;
     View.OnClickListener cl;
 
     @Override
@@ -150,7 +158,8 @@ public class DeviceActivity extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_device, container, false);
 
-        connectBtn = view.findViewById(R.id.connect_btn);
+        connectBtn = (Button) view.findViewById(R.id.connect_btn);
+        dataBtn = (Button) view.findViewById(R.id.get_data_btn);
 
         cl = new View.OnClickListener() {
             @Override
@@ -159,17 +168,43 @@ public class DeviceActivity extends Fragment {
                     case R.id.connect_btn:
                         getParentFragmentManager().beginTransaction().replace(R.id.main_frame, new DeviceScanActivity()).commit();
                         break;
+                    case R.id.get_data_btn:
+                        if (mGattCharacteristics != null) {
+//                        final BluetoothGattCharacteristic characteristic =
+//                                mGattCharacteristics.get(groupPosition).get(childPosition);
+                            final BluetoothGattCharacteristic characteristic =
+                                    mGattCharacteristics.get(2).get(0);
+                            final int charaProp = characteristic.getProperties();
+                            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                                // If there is an active notification on a characteristic, clear
+                                // it first so it doesn't update the data field on the user interface.
+                                if (mNotifyCharacteristic != null) {
+                                    mBluetoothLeService.setCharacteristicNotification(
+                                            mNotifyCharacteristic, false);
+                                    mNotifyCharacteristic = null;
+                                }
+                                mBluetoothLeService.readCharacteristic(characteristic);
+                            }
+                            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                                mNotifyCharacteristic = characteristic;
+                                mBluetoothLeService.setCharacteristicNotification(
+                                        characteristic, true);
+                            }
+                        }
+                        break;
                 }
             }
         };
         connectBtn.setOnClickListener(cl);
+        dataBtn.setOnClickListener(cl);
 
         // Sets up UI references.
 //        ((TextView) view.findViewById(R.id.device_selected_name)).setText(mDeviceName);
         mGattServicesList = (ExpandableListView) view.findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) view.findViewById(R.id.device_connection_state);
-        mDataField = (TextView) view.findViewById(R.id.thu_pill);
+//        mDataField = (TextView) view.findViewById(R.id.thu_pill);
+        mDataView = (TextView) view.findViewById(R.id.device_data);
 
         getParentFragmentManager().setFragmentResultListener("device_selected", this, new FragmentResultListener() {
             @Override
@@ -251,7 +286,8 @@ public class DeviceActivity extends Fragment {
 
     private void displayData(String data) {
         if (data != null) {
-            mDataField.setText(data);
+//            mDataField.setText(data);
+            mDataView.setText(data);
         }
     }
 
