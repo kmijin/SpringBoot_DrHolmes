@@ -7,7 +7,7 @@
     tools:context=".map.pharmacy.MapPharmacyActivity">
 
     <View
-        android:id="@+id/View"
+        android:id="@+id/Mapsss"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,7 @@
         android:background="#AAAAAA"/>
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/search_bar_pharmacy"
         android:layout_margin="15dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -34,25 +34,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/pharmacy_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
         android:text="필터"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/button2" />
+        app:layout_constraintBottom_toTopOf="@id/now_where" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/now_where"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="현위치"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/button3" />
+        app:layout_constraintBottom_toTopOf="@id/pharmacy_list_button" />
 
     <Button
         android:id="@+id/pharmacy_list_button"
