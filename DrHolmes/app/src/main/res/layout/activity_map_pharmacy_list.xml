@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/pharmacy_array_list_map"/>
 
     <Button
-        android:id="@+id/to_map_button"
+        android:id="@+id/to_map_pharmacy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

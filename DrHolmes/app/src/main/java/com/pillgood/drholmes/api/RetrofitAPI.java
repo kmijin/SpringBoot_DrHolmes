@@ -1,6 +1,6 @@
 package com.pillgood.drholmes.api;
 
-import com.pillgood.drholmes.api.pill.Pharmacy;
+import com.pillgood.drholmes.api.pill.ResponseClass;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,5 +11,5 @@ public interface RetrofitAPI {
     String getPharmacy = "pharmacyInfoService/getParmacyBasisList";
 
     @GET(getPharmacy)
-    Call<Pharmacy> getPharmacyInfo(@Query("serviceKey") String serviceKey);
+    Call<ResponseClass> getPharmacyInfo(@Query("serviceKey") String serviceKey);
 }
