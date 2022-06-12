@@ -61,13 +61,19 @@ public class MapPharmacyListActivity extends Fragment {
 
         mapButton = (Button) view.findViewById(R.id.to_map_pharmacy_button);
 
+        pharmacyActivity = new MapPharmacyActivity();
+
         fragmentManager = getParentFragmentManager();
 
 
         cl = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.fragment_tab_map, pharmacyActivity).commit();
+                switch (view.getId()) {
+                    case R.id.to_map_pharmacy_button:
+                        fragmentManager.beginTransaction().replace(R.id.fragment_tab_map, pharmacyActivity).commit();
+                        break;
+                }
             }
         };
         mapButton.setOnClickListener(cl);
