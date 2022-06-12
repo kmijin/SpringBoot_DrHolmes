@@ -106,7 +106,7 @@ public class MapPharmacyListActivity extends Fragment {
         recyclerView.setAdapter(adapter);
 
         //retrofit 시작
-                try {
+        try {
             retrofit = new Retrofit.Builder()
                     .baseUrl(RetrofitAPI.baseURL)
                     .addConverterFactory(TikXmlConverterFactory.create(new TikXml.Builder().exceptionOnUnreadXml(false).build()))
@@ -121,8 +121,8 @@ public class MapPharmacyListActivity extends Fragment {
                         for(ItemClass item : response.body().getBody().getItems().getItem()) {
                             Log.e("약국", item.getYadmNm());
                             adapter.addItem(new Pharmacy(item.getYadmNm(), item.getAddr(), item.getTelno(), item.getXPos(), item.getYPos()));
+                            adapter.notifyItemInserted(adapter.getItemCount());
                         }
-                        adapter.notifyItemInserted(adapter.getItemCount());
                     }
                 }
 
