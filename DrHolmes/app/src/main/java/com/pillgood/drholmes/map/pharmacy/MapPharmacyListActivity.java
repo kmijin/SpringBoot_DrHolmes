@@ -56,7 +56,14 @@ public class MapPharmacyListActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_map_pharmacy_list, container, false);
 
+        recyclerView = view.findViewById(R.id.pharmacy_list_recycle);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
         ArrayList<String> testDataSet = new ArrayList<>();
+        PharmacyListCustomAdapter hslistcustomAdapter = new PharmacyListCustomAdapter(testDataSet);
+
+        recyclerView.setLayoutManager(linearLayoutManager);  // LayoutManager 설정
+        recyclerView.setAdapter(hslistcustomAdapter); // 어댑터 설정
 
         //retrofit 시작
                 try {
@@ -76,6 +83,7 @@ public class MapPharmacyListActivity extends Fragment {
                             Log.e("약국", item.getYadmNm());
                             testDataSet.add(item.getYadmNm());
                         }
+                        hslistcustomAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -88,27 +96,6 @@ public class MapPharmacyListActivity extends Fragment {
             Log.e("약국 Exception", e.getMessage());
         }
         //retrofit 끝
-
-        //===== 테스트를 위한 더미 데이터 생성 ===================
-//        ArrayList<String> testDataSet = new ArrayList<>();
-//        for (int i = 0; i<20; i++) {
-//            testDataSet.add("TEST DATA" + i);
-//        }
-        //========================================================
-        recyclerView = view.findViewById(R.id.pharmacy_list_recycle);
-
-        //--- LayoutManager는 아래 3가지중 하나를 선택하여 사용 ---
-        // 1) LinearLayoutManager()
-        // 2) GridLayoutManager()
-        // 3) StaggeredGridLayoutManager()
-        //---------------------------------------------------------
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);  // LayoutManager 설정
-
-        PharmacyListCustomAdapter hslistcustomAdapter = new PharmacyListCustomAdapter(testDataSet);
-        recyclerView.setAdapter(hslistcustomAdapter); // 어댑터 설정
-
         return view;
     }
 }

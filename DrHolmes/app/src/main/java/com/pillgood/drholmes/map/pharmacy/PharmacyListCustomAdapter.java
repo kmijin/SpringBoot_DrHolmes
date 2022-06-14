@@ -21,7 +21,7 @@ public class PharmacyListCustomAdapter extends RecyclerView.Adapter<PharmacyList
         private TextView textView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView6);
+            textView = itemView.findViewById(R.id.pharmacy_name);
         }
         public TextView getTextView() {
             return textView;

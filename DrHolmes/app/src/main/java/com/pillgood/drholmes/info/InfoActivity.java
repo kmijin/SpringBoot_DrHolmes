@@ -9,13 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pillgood.drholmes.R;
-import com.pillgood.drholmes.map.hospital.MapHospitalActivity;
-import com.pillgood.drholmes.map.pharmacy.MapPharmacyActivity;
 
 public class InfoActivity extends Fragment {
 
-    InfoDiseaseActivity infoDiseaseActivity;
-    InfoPillActivity infoPillActivity;
+    InfoDiseaseActivity diseaseActivity;
+    InfoPillActivity pillActivity;
     View view;
     TabLayout tabs;
 
@@ -23,16 +21,16 @@ public class InfoActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_map, container, false);
+        view = inflater.inflate(R.layout.activity_info, container, false);
 
-        infoDiseaseActivity = new InfoDiseaseActivity();
-        infoPillActivity = new InfoPillActivity();
+        diseaseActivity = new InfoDiseaseActivity();
+        pillActivity = new InfoPillActivity();
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tab_info, infoDiseaseActivity).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tab_info, diseaseActivity).commit();
 
         tabs = (TabLayout) view.findViewById(R.id.tabs_info);
         tabs.addTab(tabs.newTab().setText("질환"));
-        tabs.addTab(tabs.newTab().setText("약품"));
+        tabs.addTab(tabs.newTab().setText("약"));
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -40,10 +38,10 @@ public class InfoActivity extends Fragment {
                 Fragment selected = null;
                 switch (tab.getPosition()) {
                     case 0:
-                        selected = infoDiseaseActivity;
+                        selected = diseaseActivity;
                         break;
                     case 1:
-                        selected = infoPillActivity;
+                        selected = pillActivity;
                         break;
                 }
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tab_info, selected).commit();
