@@ -3,81 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".info.InfoPillActivity">
-
-    <View
-        android:id="@+id/View"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:background="#ffffff"/>
-
-<!--    <TextView-->
-<!--        android:id="@+id/disease"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="질환"-->
-<!--        android:textColor="#ADADAD"-->
-<!--        android:textSize="45sp"-->
-<!--        android:textStyle="bold"-->
-<!--        tools:layout_editor_absoluteX="67dp"-->
-<!--        tools:layout_editor_absoluteY="56dp"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/medicine"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="약품"-->
-<!--        android:textColor="#0A700A"-->
-<!--        android:textSize="45sp"-->
-<!--        android:textStyle="bold"-->
-<!--        tools:layout_editor_absoluteX="261dp"-->
-<!--        tools:layout_editor_absoluteY="56dp"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="110dp"
-        android:layout_height="38dp"
-        android:text="약형태"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="229dp"
-        tools:ignore="MissingConstraints" />
+    android:layout_height="match_parent">
+<!--    tools:context=".info.InfoPillActivity">-->
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/pill_seach"
         android:layout_width="371dp"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="검색"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="134dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
+    <TextView
+        android:id="@+id/pill_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/arrow_down_float"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="199dp"
-        tools:ignore="MissingConstraints" />
+        android:text="약형태"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/pill_seach"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TableLayout
+        android:id="@+id/pill_filter_icon"
         android:layout_width="351dp"
-        android:layout_height="395dp"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="288dp"
-        tools:ignore="MissingConstraints">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/pill_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <TableRow>
 
@@ -153,5 +109,13 @@
                 android:layout_margin="5dp" />
         </TableRow>
     </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pill_list_recycle"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pill_filter_icon"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
