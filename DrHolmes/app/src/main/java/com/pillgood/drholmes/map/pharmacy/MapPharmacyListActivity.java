@@ -1,6 +1,5 @@
 package com.pillgood.drholmes.map.pharmacy;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,21 +9,20 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillgood.drholmes.R;
-import com.pillgood.drholmes.api.RetrofitAPI;
-import com.pillgood.drholmes.api.pill.ItemClass;
-import com.pillgood.drholmes.api.pill.Pharmacy;
+import com.pillgood.drholmes.api.PharmacyAPI;
+import com.pillgood.drholmes.api.pharmacy.ItemClass;
+import com.pillgood.drholmes.api.pharmacy.ResponseClass;
 import com.tickaroo.tikxml.TikXml;
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,15 +31,20 @@ import retrofit2.Retrofit;
 
 public class MapPharmacyListActivity extends Fragment {
 
+    Button mapButton;
+    View.OnClickListener cl;
+    FragmentManager fragmentManager;
+    MapPharmacyActivity pharmacyActivity;
+    MapPharmacyDetailActivity pharmacyDetailActivity;
     View view;
     RecyclerView recyclerView;
+    PharmacyAdapter adapter;
 
     //retrofit 관련
     Retrofit retrofit;
-    RetrofitAPI service;
+    PharmacyAPI service;
     String serviceKey_origin = "J%2FS0JBdWnrQa9KR69M9AJHWjQwTch0%2F20l8%2BdpQ5wH8sMuKGfYlihZjIxwDCPjVBF9JUeaTeJr1xEhbDvcL%2BWw%3D%3D";
     String serviceKey;
-    Pharmacy pharmacy;
 
     {
         try {
@@ -56,39 +59,75 @@ public class MapPharmacyListActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_map_pharmacy_list, container, false);
 
+        mapButton = (Button) view.findViewById(R.id.to_map_pharmacy_button);
+
+        pharmacyActivity = new MapPharmacyActivity();
+
+        fragmentManager = getParentFragmentManager();
+
+
+        cl = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.to_map_pharmacy_button:
+                        fragmentManager.beginTransaction().replace(R.id.fragment_tab_map, pharmacyActivity).commit();
+                        break;
+                }
+            }
+        };
+        mapButton.setOnClickListener(cl);
+
+        pharmacyDetailActivity = new MapPharmacyDetailActivity();
+
         recyclerView = view.findViewById(R.id.pharmacy_list_recycle);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
-        ArrayList<String> testDataSet = new ArrayList<>();
-        PharmacyListCustomAdapter hslistcustomAdapter = new PharmacyListCustomAdapter(testDataSet);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new PharmacyAdapter();
 
-        recyclerView.setLayoutManager(linearLayoutManager);  // LayoutManager 설정
-        recyclerView.setAdapter(hslistcustomAdapter); // 어댑터 설정
+        adapter.setOnItemClickListener(new PharmacyAdapter.OnPharmacyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Pharmacy pharmacy = adapter.getItem(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("pharmacy_name", pharmacy.getName());
+                bundle.putString("pharmacy_address", pharmacy.getAddress());
+                bundle.putString("pharmacy_tel", pharmacy.getTel());
+                bundle.putDouble("pharmacy_XPos", pharmacy.getXPos());
+                bundle.putDouble("pharmacy_YPos", pharmacy.getYPos());
+
+                fragmentManager.setFragmentResult("pharmacy_selected", bundle);
+                fragmentManager.beginTransaction().replace(R.id.fragment_tab_map, pharmacyDetailActivity).commit();
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
 
         //retrofit 시작
-                try {
+        try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(RetrofitAPI.baseURL)
+                    .baseUrl(PharmacyAPI.baseURL)
                     .addConverterFactory(TikXmlConverterFactory.create(new TikXml.Builder().exceptionOnUnreadXml(false).build()))
                     .build();
-            service = retrofit.create(RetrofitAPI.class);
+            service = retrofit.create(PharmacyAPI.class);
 
-            service.getPharmacyInfo(serviceKey).enqueue(new Callback<Pharmacy>() {
+            service.getPharmacyInfo(serviceKey).enqueue(new Callback<ResponseClass>() {
                 @Override
-                public void onResponse(Call<Pharmacy> call, Response<Pharmacy> response) {
+                public void onResponse(Call<ResponseClass> call, Response<ResponseClass> response) {
                     if (response.isSuccessful()) {
-//                        Log.e("약국", "response raw=" + response.raw());
                           Log.e("약국", "response=" + response.code() + " Total=" + response.body().getBody().getTotalCount());
                         for(ItemClass item : response.body().getBody().getItems().getItem()) {
                             Log.e("약국", item.getYadmNm());
-                            testDataSet.add(item.getYadmNm());
+                            adapter.addItem(new Pharmacy(item.getYadmNm(), item.getAddr(), item.getTelno(), item.getXPos(), item.getYPos()));
+                            adapter.notifyItemInserted(adapter.getItemCount());
                         }
-                        hslistcustomAdapter.notifyDataSetChanged();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Pharmacy> call, Throwable t) {
+                public void onFailure(Call<ResponseClass> call, Throwable t) {
                     Log.e("약국", "ERROR=" + t.toString());
                 }
             });

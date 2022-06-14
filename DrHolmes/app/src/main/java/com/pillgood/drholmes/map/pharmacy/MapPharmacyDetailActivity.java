@@ -1,4 +1,4 @@
-package com.pillgood.drholmes.map.hospital;
+package com.pillgood.drholmes.map.pharmacy;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -24,34 +24,35 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
-public class MapHospitalDetailActivity extends Fragment {
+public class MapPharmacyDetailActivity extends Fragment {
 
     View view;
-    String TAG = "MapHospitalDetailActivity";
+    String TAG = "MapPharmacyDetailActivity";
 
     Button btnFindWay;
     View.OnClickListener cl;
 
-    String hospitalName, hospitalAddress, hospitalTel;
-    Double hospitalXPos, hospitalYPos;
+    String pharmacyName, pharmacyAddress, pharmacyTel;
+    Double pharmacyXPos, pharmacyYPos;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_map_hospital_detail, container, false);
+        view = inflater.inflate(R.layout.activity_map_pharmacy_detail, container, false);
 
-        btnFindWay = view.findViewById(R.id.btnFindWayHospital);
+        btnFindWay = view.findViewById(R.id.btnFindWayPharmacy);
         cl = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.btnFindWayHospital:
+                    case R.id.btnFindWayPharmacy:
 //                        인텐트 참고: https://www.mrlatte.net/code/2019/10/26/navigation-route-intent-android.html
 //                        우선 네이버 지도로 연결되도록 구현함
 //                        네이버 가이드: https://guide.ncloud-docs.com/docs/naveropenapiv3-maps-url-scheme-url-scheme
                         String url = null;
                         try {
-                            url = String.format("nmap://route/public?dlat=%s&dlng=%s&dname=%s&appname=%s", hospitalYPos, hospitalXPos, URLEncoder.encode(hospitalName, "UTF-8"), "com.pillgood.drholmes");
+//                            url = String.format("nmap://place?lat=%s&lng=%s&name=%s&appname=%s", pharmacyYPos, pharmacyXPos, URLEncoder.encode(pharmacyName, "UTF-8"), "com.pillgood.drholmes");
+                            url = String.format("nmap://route/public?dlat=%s&dlng=%s&dname=%s&appname=%s", pharmacyYPos, pharmacyXPos, URLEncoder.encode(pharmacyName, "UTF-8"), "com.pillgood.drholmes");
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -71,18 +72,18 @@ public class MapHospitalDetailActivity extends Fragment {
         };
         btnFindWay.setOnClickListener(cl);
 
-        getParentFragmentManager().setFragmentResultListener("hospital_selected", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("pharmacy_selected", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                hospitalName = bundle.getString("hospital_name");
-                hospitalAddress = bundle.getString("hospital_address");
-                hospitalTel = bundle.getString("hospital_tel");
-                hospitalXPos = bundle.getDouble("hospital_XPos");
-                hospitalYPos = bundle.getDouble("hospital_YPos");
+                pharmacyName = bundle.getString("pharmacy_name");
+                pharmacyAddress = bundle.getString("pharmacy_address");
+                pharmacyTel = bundle.getString("pharmacy_tel");
+                pharmacyXPos = bundle.getDouble("pharmacy_XPos");
+                pharmacyYPos = bundle.getDouble("pharmacy_YPos");
 
-                ((TextView) view.findViewById(R.id.hospital_detail_name)).setText(hospitalName);
-                ((TextView) view.findViewById(R.id.hospital_detail_address)).setText(hospitalAddress);
-                ((TextView) view.findViewById(R.id.hospital_detail_tel)).setText(hospitalTel);
+                ((TextView) view.findViewById(R.id.pharmacy_detail_name)).setText(pharmacyName);
+                ((TextView) view.findViewById(R.id.pharmacy_detail_address)).setText(pharmacyAddress);
+                ((TextView) view.findViewById(R.id.pharmacy_detail_tel)).setText(pharmacyTel);
             }
         });
 

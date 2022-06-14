@@ -1,4 +1,4 @@
-package com.pillgood.drholmes.api.pill;
+package com.pillgood.drholmes.api.hospital;
 
 
 import com.tickaroo.tikxml.annotation.Element;
@@ -6,7 +6,7 @@ import com.tickaroo.tikxml.annotation.Xml;
 
 @Xml(name = "response")
 //@Root(name="response", strict = false)
-public class Pharmacy {
+public class ResponseClass {
     @Element(name = "header")
     HeaderClass header;
     @Element(name = "body")

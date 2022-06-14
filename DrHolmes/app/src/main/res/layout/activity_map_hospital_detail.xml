@@ -33,7 +33,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +43,7 @@
                 android:background="#FFFFFF">
 
                 <TextView
+                    android:id="@+id/hospital_detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="닥터정형외과"
@@ -51,7 +52,7 @@
                     android:textColor="#000000"/>
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/hospital_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="경기 성남시 중원구"
@@ -60,7 +61,7 @@
                     android:textColor="#000000"/>
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/hospital_detail_parking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="주차 가능(유료)"
@@ -69,7 +70,7 @@
                     android:textColor="#000000"/>
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/hospital_detail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="월요일 09:00 ~ 20:00  V"
@@ -78,7 +79,7 @@
                     android:textColor="#000000"/>
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/hospital_detail_url"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="http://www.naver.com/"
@@ -87,7 +88,7 @@
                     android:textColor="#0099FF"/>
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/hospital_detail_tel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="031-1234-5678"
@@ -99,11 +100,11 @@
 
 
             <Button
-                android:id="@+id/btnFindWay"
+                android:id="@+id/btnFindWayHospital"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/linearLayout"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="@id/linearLayout1"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout1"
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="300dp"
                 android:text="길찾기" />
@@ -112,7 +113,7 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:padding="10dp"
