@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillgood.drholmes.R;
-import com.pillgood.drholmes.api.RetrofitAPI;
-import com.pillgood.drholmes.api.pill.ItemClass;
-import com.pillgood.drholmes.api.pill.ResponseClass;
+import com.pillgood.drholmes.api.PharmacyAPI;
+import com.pillgood.drholmes.api.pharmacy.ItemClass;
+import com.pillgood.drholmes.api.pharmacy.ResponseClass;
 import com.tickaroo.tikxml.TikXml;
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
@@ -42,7 +42,7 @@ public class MapPharmacyListActivity extends Fragment {
 
     //retrofit 관련
     Retrofit retrofit;
-    RetrofitAPI service;
+    PharmacyAPI service;
     String serviceKey_origin = "J%2FS0JBdWnrQa9KR69M9AJHWjQwTch0%2F20l8%2BdpQ5wH8sMuKGfYlihZjIxwDCPjVBF9JUeaTeJr1xEhbDvcL%2BWw%3D%3D";
     String serviceKey;
 
@@ -108,10 +108,10 @@ public class MapPharmacyListActivity extends Fragment {
         //retrofit 시작
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(RetrofitAPI.baseURL)
+                    .baseUrl(PharmacyAPI.baseURL)
                     .addConverterFactory(TikXmlConverterFactory.create(new TikXml.Builder().exceptionOnUnreadXml(false).build()))
                     .build();
-            service = retrofit.create(RetrofitAPI.class);
+            service = retrofit.create(PharmacyAPI.class);
 
             service.getPharmacyInfo(serviceKey).enqueue(new Callback<ResponseClass>() {
                 @Override

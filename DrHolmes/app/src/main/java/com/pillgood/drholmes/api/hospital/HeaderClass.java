@@ -1,4 +1,4 @@
-package com.pillgood.drholmes.api.pill;
+package com.pillgood.drholmes.api.hospital;
 
 import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
