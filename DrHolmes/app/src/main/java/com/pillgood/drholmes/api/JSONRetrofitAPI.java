@@ -12,9 +12,13 @@ import retrofit2.http.POST;
 public interface JSONRetrofitAPI {
     String baseURL = "http://43.200.60.75:8080/";
 
-    @GET("drHomesUser")
-    Call<List<Post>> getUser();
 
+
+    //로그인
     @POST("member/select")
-    Call<List<Post>> setUser(@Body Post post);
+    Call<List<Post>> userLogin(@Body Post post);
+
+    //회원가입
+    @POST("member/select")
+    Call<List<Post>> userJoin(@Body Post post);
 }
