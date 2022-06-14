@@ -6,31 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".info.InfoDiseaseActivity">
 
-<!--zzzz-->
+    <View
+        android:id="@+id/View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:background="#ffffff"/>
 
-    <TextView
-        android:id="@+id/disease1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="질환"
-        android:textColor="#0A700A"
-        android:textSize="45sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="57dp"
-        tools:ignore="MissingConstraints" />
+<!--    <TextView-->
+<!--        android:id="@+id/disease1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="질환"-->
+<!--        android:textColor="#0A700A"-->
+<!--        android:textSize="45sp"-->
+<!--        android:textStyle="bold"-->
+<!--        tools:layout_editor_absoluteX="56dp"-->
+<!--        tools:layout_editor_absoluteY="57dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
-    <TextView
-        android:id="@+id/medicine2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="약품"
-        android:textColor="#ADADAD"
-        android:textSize="45sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="57dp"
-        tools:ignore="MissingConstraints" />
+<!--    <TextView-->
+<!--        android:id="@+id/medicine2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="약품"-->
+<!--        android:textColor="#ADADAD"-->
+<!--        android:textSize="45sp"-->
+<!--        android:textStyle="bold"-->
+<!--        tools:layout_editor_absoluteX="265dp"-->
+<!--        tools:layout_editor_absoluteY="57dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <EditText
         android:id="@+id/editTextTextPersonName"

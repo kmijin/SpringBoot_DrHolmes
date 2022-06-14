@@ -85,6 +85,18 @@ public class LoginActivity extends Activity {
                 }
             }
         });
+
+        btn_join.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void LoginResponse(String id, String pw) {
@@ -103,7 +115,7 @@ public class LoginActivity extends Activity {
         );
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        service.setUser(post).enqueue(new Callback<List<Post>>() {
+        service.userLogin(post).enqueue(new Callback<List<Post>>() {
 
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {

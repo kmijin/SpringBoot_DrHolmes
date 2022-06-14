@@ -42,7 +42,7 @@ public class JoinActivity extends Activity {
         EditText email, name, password;
         CheckBox gender_man, gender_woman, emailagree;
 
-        join = (Button) findViewById(R.id.btn_join);
+        join = (Button) findViewById(R.id.join_button);
         del = (Button) findViewById(R.id.cancel);
         email = (EditText) findViewById(R.id.join_email);
         name = (EditText) findViewById(R.id.join_name);
@@ -108,7 +108,7 @@ public class JoinActivity extends Activity {
         );
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        service.setUser(post).enqueue(new Callback<List<Post>>() {
+        service.userLogin(post).enqueue(new Callback<List<Post>>() {
 
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
