@@ -13,7 +13,6 @@ import com.pillgood.drholmes.check.CheckActivity;
 import com.pillgood.drholmes.device.DeviceActivity;
 import com.pillgood.drholmes.home.HomeActivity;
 import com.pillgood.drholmes.info.InfoActivity;
-import com.pillgood.drholmes.info.InfoDiseaseActivity;
 import com.pillgood.drholmes.map.MapActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

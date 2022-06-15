@@ -32,6 +32,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
@@ -126,7 +127,7 @@ public class BluetoothLeService extends Service {
         // This is special handling for the Heart Rate Measurement profile.  Data parsing is
         // carried out as per profile specifications:
         // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
-//        if (UUID_HM_10.equals(characteristic.getUuid())) {
+        if (UUID_HM_10.equals(characteristic.getUuid())) {
 //            int flag = characteristic.getProperties();
 //            int format = -1;
 //            if ((flag & 0x01) != 0) {
@@ -140,7 +141,7 @@ public class BluetoothLeService extends Service {
 //            Log.d(TAG, String.format("Received IR data: %d", IRdata));
 //            intent.putExtra(EXTRA_DATA, String.valueOf(IRdata));
 //        } else {
-            // For all other profiles, writes the data formatted in HEX.
+////             For all other profiles, writes the data formatted in HEX.
             final byte[] data = characteristic.getValue();
             if (data != null && data.length > 0) {
                 final StringBuilder stringBuilder = new StringBuilder(data.length);
@@ -148,7 +149,7 @@ public class BluetoothLeService extends Service {
                     stringBuilder.append(String.format("%02X ", byteChar));
 //                intent.putExtra(EXTRA_DATA, new String(data) + "\n" + stringBuilder.toString());
                 intent.putExtra(EXTRA_DATA, new String(data));
-//            }
+            }
         }
         sendBroadcast(intent);
     }

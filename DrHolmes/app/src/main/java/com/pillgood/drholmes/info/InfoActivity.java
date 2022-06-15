@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pillgood.drholmes.R;
+import com.pillgood.drholmes.info.disease.InfoDiseaseActivity;
+import com.pillgood.drholmes.info.pill.InfoPillActivity;
 
 public class InfoActivity extends Fragment {
 

@@ -29,16 +29,27 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import com.pillgood.drholmes.R;
+import com.pillgood.drholmes.api.DeviceAPI;
+import com.pillgood.drholmes.api.device.DeviceClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeviceActivity extends Fragment {
 
     View view;
 
     private final static String TAG = "DeviceActivity";
+
+    Retrofit retrofit;
+    DeviceAPI deviceAPI;
 
     private TextView mConnectionState;
     private TextView mDataField;
@@ -102,6 +113,7 @@ public class DeviceActivity extends Fragment {
                 Log.e("SERVICES DISCOVERED", "OK");
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                postDataToSpring(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                 Log.e("DATA AVAILABLE", "OK");
             }
         }
@@ -216,6 +228,13 @@ public class DeviceActivity extends Fragment {
                 Log.e(TAG, getActivity()==null?"null":"not null");
                 Intent gattServiceIntent = new Intent(getActivity(), BluetoothLeService.class);
                 getActivity().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(deviceAPI.baseURL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                deviceAPI = retrofit.create(DeviceAPI.class);
             }
         });
 
@@ -288,6 +307,26 @@ public class DeviceActivity extends Fragment {
         if (data != null) {
 //            mDataField.setText(data);
             mDataView.setText(data);
+        }
+    }
+
+    private void postDataToSpring(String data) {
+        if (data != null) {
+            String id, state;
+            id = data.substring(0,1);
+            state = data.substring(1);
+            DeviceClass deviceClass = new DeviceClass(id, state);
+            deviceAPI.postData(deviceClass).enqueue(new Callback<List<DeviceClass>>() {
+                @Override
+                public void onResponse(Call<List<DeviceClass>> call, Response<List<DeviceClass>> response) {
+                    Log.d("deviceAPI", "Data fetch success");
+                }
+
+                @Override
+                public void onFailure(Call<List<DeviceClass>> call, Throwable t) {
+                    Log.e("deviceAPI", "ERROR=" + t.toString());
+                }
+            });
         }
     }
 
