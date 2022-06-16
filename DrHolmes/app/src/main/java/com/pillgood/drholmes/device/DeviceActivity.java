@@ -316,14 +316,15 @@ public class DeviceActivity extends Fragment {
             id = data.substring(0,1);
             state = data.substring(1);
             DeviceClass deviceClass = new DeviceClass(id, state);
-            deviceAPI.postData(deviceClass).enqueue(new Callback<List<DeviceClass>>() {
+            deviceAPI.postData(deviceClass).enqueue(new Callback<DeviceClass>() {
                 @Override
-                public void onResponse(Call<List<DeviceClass>> call, Response<List<DeviceClass>> response) {
-                    Log.d("deviceAPI", "Data fetch success");
+                public void onResponse(Call<DeviceClass> call, Response<DeviceClass> response) {
+                    Log.d("deviceAPI", "Data send success");
+                    Log.d("deviceAPI", id+state);
                 }
 
                 @Override
-                public void onFailure(Call<List<DeviceClass>> call, Throwable t) {
+                public void onFailure(Call<DeviceClass> call, Throwable t) {
                     Log.e("deviceAPI", "ERROR=" + t.toString());
                 }
             });
