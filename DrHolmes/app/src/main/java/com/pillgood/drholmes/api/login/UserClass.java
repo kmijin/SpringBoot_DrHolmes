@@ -2,7 +2,7 @@ package com.pillgood.drholmes.api.login;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+public class UserClass {
 
 //    String userId;
 //    String userPassword;
@@ -12,7 +12,7 @@ public class Post {
 //    Integer emailAgree;
 //    String joinDate;
 //
-//    public Post(String userId, String userPassword) {
+//    public UserClass(String userId, String userPassword) {
 //        this.userId = userId;
 //        this.userPassword = userPassword;
 //    }
@@ -45,7 +45,7 @@ public class Post {
 //        return joinDate;
 //    }
 
-    public Post(String id, String pw) {
+    public UserClass(String id, String pw) {
         this.userId = id;
         this.userPassword = pw;
         this.userName = "id";

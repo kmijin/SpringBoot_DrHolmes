@@ -3,7 +3,6 @@ package com.pillgood.drholmes.info.disease;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,25 +12,25 @@ import com.pillgood.drholmes.R;
 
 import java.util.ArrayList;
 
-public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.ViewHolder>{
+public class DiseaseAdapter extends RecyclerView.Adapter<DiseaseAdapter.ViewHolder>{
 
-    private ArrayList<disease> items = new ArrayList<>();
-    private diseaseAdapter.OnPharmacyItemClickListener itemClickListener;
+    private ArrayList<Disease> items = new ArrayList<>();
+    private DiseaseAdapter.OnPharmacyItemClickListener itemClickListener;
 
     public interface OnPharmacyItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(diseaseAdapter.OnPharmacyItemClickListener listener) {
+    public void setOnItemClickListener(DiseaseAdapter.OnPharmacyItemClickListener listener) {
         this.itemClickListener = listener;
     }
 
     @NonNull
     @Override
-    public diseaseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DiseaseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.disease_list_item, parent, false);
-        diseaseAdapter.ViewHolder viewHolder = new diseaseAdapter.ViewHolder(itemView);
+        DiseaseAdapter.ViewHolder viewHolder = new DiseaseAdapter.ViewHolder(itemView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +46,8 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull diseaseAdapter.ViewHolder holder, int position) {
-        disease item = items.get(position);
+    public void onBindViewHolder(@NonNull DiseaseAdapter.ViewHolder holder, int position) {
+        Disease item = items.get(position);
         holder.setItem(item);
 
     }
@@ -58,36 +57,38 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.ViewHold
         return items.size();
     }
 
-    public void addItem(disease item) {
+    public void addItem(Disease item) {
         items.add(item);
     }
 
-    public void setItems(ArrayList<disease> items) {
+    public void setItems(ArrayList<Disease> items) {
         this.items = items;
     }
 
-    public disease getItem(int position) {
+    public Disease getItem(int position) {
         return  items.get(position);
     }
 
-    public void setItem(int position, disease item) {
+    public void setItem(int position, Disease item) {
         items.set(position, item);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPillName;
-        private ImageView tvPillIcon;
-        private TextView tvPillDesc;
+        private TextView tvDiseaseName;
+        private TextView tvDiseaseFilterName;
+        private TextView tvDiseaseDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPillName = itemView.findViewById(R.id.disease_name);
+            tvDiseaseName = itemView.findViewById(R.id.disease_name);
+            tvDiseaseFilterName = itemView.findViewById(R.id.disease_filter_name);
+            tvDiseaseDesc = itemView.findViewById(R.id.disease_desc);
         }
 
-        public void setItem(disease item) {
-//            tvPillName.setText(item.getName());
-//            tvPillDesc.setText(item.getDesc());
-            //tvPillIcon.setImage(item.getIcon());
+        public void setItem(Disease item) {
+            tvDiseaseName.setText(item.getName());
+            tvDiseaseFilterName.setText(item.getFilterName());
+            tvDiseaseDesc.setText(item.getDesc());
         }
     }
 }

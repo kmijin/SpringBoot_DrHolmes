@@ -54,7 +54,7 @@
                     android:hint="이름"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="220dp"/>
+                    android:layout_marginLeft="180dp"/>
             </LinearLayout>
 
             <!--성별-->
@@ -79,7 +79,7 @@
                     android:hint="성별"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="220dp"/>
+                    android:layout_marginLeft="180dp"/>
             </LinearLayout>
             <!--생년월일-->
             <LinearLayout
@@ -103,7 +103,7 @@
                     android:hint="생년월일"
                     android:inputType="date"
                     android:textSize="30sp"
-                    android:layout_marginLeft="110dp"/>
+                    android:layout_marginLeft="70dp"/>
             </LinearLayout>
             <!--키/몸무게-->
             <LinearLayout
@@ -127,7 +127,7 @@
                     android:hint="키/몸무게"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="90dp"/>
+                    android:layout_marginLeft="50dp"/>
             </LinearLayout>
             <!--혈당수치-->
             <LinearLayout
@@ -151,7 +151,7 @@
                     android:hint="혈당수치"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="110dp"/>
+                    android:layout_marginLeft="80dp"/>
             </LinearLayout>
             <!--혈압수치-->
             <LinearLayout
@@ -175,7 +175,7 @@
                     android:hint="혈압수치"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="110dp"/>
+                    android:layout_marginLeft="80dp"/>
             </LinearLayout>
             <!--질병 이력-->
             <LinearLayout
@@ -216,7 +216,7 @@
                     android:hint="당뇨"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="220dp"/>
+                    android:layout_marginLeft="190dp"/>
             </LinearLayout>
             <!--고혈압-->
             <LinearLayout
@@ -240,7 +240,7 @@
                     android:hint="고혈압"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="165dp"/>
+                    android:layout_marginLeft="135dp"/>
             </LinearLayout>
             <!--질병 이력-->
             <LinearLayout
@@ -281,7 +281,7 @@
                     android:hint="고지혈증"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="110dp"/>
+                    android:layout_marginLeft="80dp"/>
             </LinearLayout>
 
             <!--복용 약 2-->
@@ -307,7 +307,7 @@
                     android:hint="마그네슘"
                     android:inputType="textPersonName"
                     android:textSize="30sp"
-                    android:layout_marginLeft="110dp"/>
+                    android:layout_marginLeft="80dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

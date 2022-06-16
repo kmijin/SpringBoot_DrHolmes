@@ -69,5 +69,5 @@ void loop() {
     BTSerial.write(temp[1][0]); // 블루투스 송신
     BTSerial.write(temp[1][1]); // 블루투스 송신
   }
-  delay(500);
+  delay(100);
 }
