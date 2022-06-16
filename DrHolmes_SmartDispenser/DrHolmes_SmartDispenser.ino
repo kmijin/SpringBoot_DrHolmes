@@ -22,6 +22,7 @@ void setup() {
   pinMode(3, OUTPUT); //D3 송신 아웃풋
   pinMode(6, INPUT); //D6 수신 인풋
   pinMode(7, INPUT); //D7 수신 인풋
+  digitalWrite(2, HIGH); //적외선 송신 HIGH
   digitalWrite(3, HIGH); //적외선 송신 HIGH
   BTSerial.begin(9600);
 }
@@ -68,6 +69,5 @@ void loop() {
     BTSerial.write(temp[1][0]); // 블루투스 송신
     BTSerial.write(temp[1][1]); // 블루투스 송신
   }
-
-  delay(1000);
+  delay(500);
 }
