@@ -27,95 +27,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TableLayout
-        android:id="@+id/pill_filter_icon"
-        android:layout_width="351dp"
+    <Button
+        android:id="@+id/pill_color"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="약 색상"
         app:layout_constraintTop_toBottomOf="@+id/pill_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintEnd_toEndOf="parent"  />
 
-        <TableRow>
+    <Button
+        android:id="@+id/pill_shape"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="약 모양"
+        app:layout_constraintTop_toBottomOf="@+id/pill_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"  />
 
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
+    <Button
+        android:id="@+id/pill_formulation"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="약 제형"
+        app:layout_constraintTop_toBottomOf="@+id/pill_shape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"  />
 
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-        </TableRow>
-
-        <TableRow>
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-        </TableRow>
-
-        <TableRow>
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-
-            <Button
-                android:layout_width="107dp"
-                android:layout_height="72dp"
-                android:layout_margin="5dp" />
-        </TableRow>
-    </TableLayout>
+    <Button
+        android:id="@+id/pill_line"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="약 분할선"
+        app:layout_constraintTop_toBottomOf="@+id/pill_formulation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pill_list_recycle"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pill_filter_icon"/>
+        app:layout_constraintTop_toBottomOf="@id/pill_line"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
