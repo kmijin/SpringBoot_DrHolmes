@@ -1,4 +1,4 @@
-package com.pillgood.drholmes.info;
+package com.pillgood.drholmes.info.disease;
 
 import android.os.Bundle;
 
