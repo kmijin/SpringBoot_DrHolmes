@@ -4,47 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserClass {
 
-//    String userId;
-//    String userPassword;
-//    String userName;
-//    String userBirth;
-//    String userGender;
-//    Integer emailAgree;
-//    String joinDate;
-//
-//    public UserClass(String userId, String userPassword) {
-//        this.userId = userId;
-//        this.userPassword = userPassword;
-//    }
-//
-//    public String getId() {
-//        return userId;
-//    }
-//
-//    public String getPassword() {
-//        return userPassword;
-//    }
-//
-//    public String getName() {
-//        return userName;
-//    }
-//
-//    public String getBirth() {
-//        return userBirth;
-//    }
-//
-//    public String getGender() {
-//        return userGender;
-//    }
-//
-//    public Integer getEmailAgree() {
-//        return emailAgree;
-//    }
-//
-//    public String getJoinDate() {
-//        return joinDate;
-//    }
-
     public UserClass(String id, String pw) {
         this.userId = id;
         this.userPassword = pw;

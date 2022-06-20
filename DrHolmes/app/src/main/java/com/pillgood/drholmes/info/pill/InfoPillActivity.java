@@ -34,7 +34,6 @@ public class InfoPillActivity extends Fragment {
     RecyclerView recyclerView;
     PillAdapter adapter;
 
-    //retrofit 관련
     Retrofit retrofit;
     PillAPI service;
     String serviceKey_origin = "J%2FS0JBdWnrQa9KR69M9AJHWjQwTch0%2F20l8%2BdpQ5wH8sMuKGfYlihZjIxwDCPjVBF9JUeaTeJr1xEhbDvcL%2BWw%3D%3D";
@@ -61,7 +60,6 @@ public class InfoPillActivity extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        //retrofit 시작
         retrofit = new Retrofit.Builder()
                 .baseUrl(PillAPI.baseURL)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))

@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".setting.SettingActivity">
 
-    <!--    테스트-->
-
     <ImageButton
         android:id="@+id/profile"
         android:layout_width="122dp"
         android:layout_height="110dp"
         android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/genage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +31,7 @@
         app:layout_constraintEnd_toStartOf="@+id/Modify"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/genage"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView

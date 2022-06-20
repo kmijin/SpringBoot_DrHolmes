@@ -39,7 +39,6 @@ public class DeviceScanActivity extends Fragment {
     private ListView deviceListView;
 
     private static final int REQUEST_ENABLE_BT = 1;
-    // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
 
     View view;
@@ -73,23 +72,17 @@ public class DeviceScanActivity extends Fragment {
             }
         });
 
-//        getActionBar().setTitle("BLE Device Scan");
         mHandler = new Handler();
 
-        // Use this check to determine whether BLE is supported on the device.  Then you can
-        // selectively disable BLE-related features.
         if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(getActivity(), "BLE is not supported", Toast.LENGTH_SHORT).show();
             getParentFragmentManager().beginTransaction().remove(this).commit();
         }
 
-        // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
-        // BluetoothAdapter through BluetoothManager.
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
-        // Checks if Bluetooth is supported on the device.
         if (mBluetoothAdapter == null) {
             Toast.makeText(getActivity(), "ERROR: bluetooth is not supported", Toast.LENGTH_SHORT).show();
             getParentFragmentManager().beginTransaction().remove(this).commit();
@@ -133,22 +126,16 @@ public class DeviceScanActivity extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // Ensures Bluetooth is enabled on the device.  If Bluetooth is not currently enabled,
-        // fire an intent to display a dialog asking the user to grant permission to enable it.
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        // Initializes list view adapter.
-//        mLeDeviceListAdapter = new LeDeviceListAdapter();
-//        setAdapter(mLeDeviceListAdapter);
         scanLeDevice(true);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // User chose not to enable Bluetooth.
         if (requestCode == REQUEST_ENABLE_BT && resultCode == Activity.RESULT_CANCELED) {
             getParentFragmentManager().beginTransaction().remove(this).commit();
             return;
@@ -165,13 +152,11 @@ public class DeviceScanActivity extends Fragment {
 
     private void scanLeDevice(final boolean enable) {
         if (enable) {
-            // Stops scanning after a pre-defined scan period.
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mScanning = false;
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//                    getActivity().invalidateOptionsMenu();
                 }
             }, SCAN_PERIOD);
 
@@ -181,10 +166,8 @@ public class DeviceScanActivity extends Fragment {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
         }
-//        getActivity().invalidateOptionsMenu();
     }
 
-    // Adapter for holding devices found through scanning.
     private class LeDeviceListAdapter extends BaseAdapter {
         private ArrayList<BluetoothDevice> mLeDevices;
         private LayoutInflater mInflator;
@@ -227,7 +210,6 @@ public class DeviceScanActivity extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             ViewHolder viewHolder;
-            // General ListView optimization code.
             if (view == null) {
                 view = mInflator.inflate(R.layout.listitem_device, null);
                 viewHolder = new ViewHolder();
@@ -250,7 +232,6 @@ public class DeviceScanActivity extends Fragment {
         }
     }
 
-    // Device scan callback.
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
 

@@ -65,7 +65,6 @@ public class MapActivity extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
         return view;
     }
 

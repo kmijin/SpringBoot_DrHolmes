@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView; //바텀 네비게이션 뷰
+    BottomNavigationView bottomNavigationView;
     Menu menu;
 
     @Override

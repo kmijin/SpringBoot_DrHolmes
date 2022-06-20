@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface DeviceAPI {
     String baseURL = "http://43.200.60.75:8080/";
-    //보내기
+
     @POST("pill")
     Call<DeviceClass> postData(@Body DeviceClass deviceClass);
 }

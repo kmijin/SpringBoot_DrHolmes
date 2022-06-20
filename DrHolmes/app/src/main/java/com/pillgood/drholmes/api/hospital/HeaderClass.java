@@ -4,7 +4,6 @@ import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
 
 @Xml(name = "header")
-//@Root(name = "header", strict = false)
 public class HeaderClass {
     @PropertyElement(name="resultCode")
     String resultCode;

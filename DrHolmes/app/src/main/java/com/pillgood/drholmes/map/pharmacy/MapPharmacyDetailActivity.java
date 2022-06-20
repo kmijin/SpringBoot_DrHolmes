@@ -46,12 +46,8 @@ public class MapPharmacyDetailActivity extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.btnFindWayPharmacy:
-//                        인텐트 참고: https://www.mrlatte.net/code/2019/10/26/navigation-route-intent-android.html
-//                        우선 네이버 지도로 연결되도록 구현함
-//                        네이버 가이드: https://guide.ncloud-docs.com/docs/naveropenapiv3-maps-url-scheme-url-scheme
                         String url = null;
                         try {
-//                            url = String.format("nmap://place?lat=%s&lng=%s&name=%s&appname=%s", pharmacyYPos, pharmacyXPos, URLEncoder.encode(pharmacyName, "UTF-8"), "com.pillgood.drholmes");
                             url = String.format("nmap://route/public?dlat=%s&dlng=%s&dname=%s&appname=%s", pharmacyYPos, pharmacyXPos, URLEncoder.encode(pharmacyName, "UTF-8"), "com.pillgood.drholmes");
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -63,7 +59,7 @@ public class MapPharmacyDetailActivity extends Fragment {
                         try {
                             startActivity(intent);
                         } catch (ActivityNotFoundException e) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap"))); // 네이버 지도 설치하기 (다른 지도 띄우도록 수정)
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap")));
                         }
 
                         break;
