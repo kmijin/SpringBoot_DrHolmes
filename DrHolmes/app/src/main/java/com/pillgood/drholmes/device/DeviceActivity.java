@@ -11,7 +11,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
@@ -24,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -52,11 +50,9 @@ public class DeviceActivity extends Fragment {
     DeviceAPI deviceAPI;
 
     private TextView mConnectionState;
-    private TextView mDataField;
     private TextView mDataView;
     private String mDeviceName;
     private String mDeviceAddress;
-    private ExpandableListView mGattServicesList;
     private BluetoothLeService mBluetoothLeService;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
@@ -66,7 +62,6 @@ public class DeviceActivity extends Fragment {
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
 
-    // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         @Override
@@ -76,7 +71,6 @@ public class DeviceActivity extends Fragment {
                 Log.e(TAG, "Unable to initialize Bluetooth");
 //                finish();
             }
-            // Automatically connects to the device upon successful start-up initialization.
             mBluetoothLeService.connect(mDeviceAddress);
         }
 
@@ -86,12 +80,6 @@ public class DeviceActivity extends Fragment {
         }
     };
 
-    // Handles various events fired by the Service.
-    // ACTION_GATT_CONNECTED: connected to a GATT server.
-    // ACTION_GATT_DISCONNECTED: disconnected from a GATT server.
-    // ACTION_GATT_SERVICES_DISCOVERED: discovered GATT services.
-    // ACTION_DATA_AVAILABLE: received data from the device.  This can be a result of read
-    //                        or notification operations.
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -108,7 +96,6 @@ public class DeviceActivity extends Fragment {
                 clearUI();
                 Log.e("DISCONNECTED", "OK");
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 Log.e("SERVICES DISCOVERED", "OK");
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
@@ -119,45 +106,7 @@ public class DeviceActivity extends Fragment {
         }
     };
 
-    // If a given GATT characteristic is selected, check for supported features.  This sample
-    // demonstrates 'Read' and 'Notify' features.  See
-    // http://d.android.com/reference/android/bluetooth/BluetoothGatt.html for the complete
-    // list of supported characteristic features.
-    private final ExpandableListView.OnChildClickListener servicesListClickListner =
-            new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
-                                            int childPosition, long id) {
-                    if (mGattCharacteristics != null) {
-//                        final BluetoothGattCharacteristic characteristic =
-//                                mGattCharacteristics.get(groupPosition).get(childPosition);
-                        final BluetoothGattCharacteristic characteristic =
-                                mGattCharacteristics.get(2).get(0);
-                        final int charaProp = characteristic.getProperties();
-                        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-                            // If there is an active notification on a characteristic, clear
-                            // it first so it doesn't update the data field on the user interface.
-                            if (mNotifyCharacteristic != null) {
-                                mBluetoothLeService.setCharacteristicNotification(
-                                        mNotifyCharacteristic, false);
-                                mNotifyCharacteristic = null;
-                            }
-                            mBluetoothLeService.readCharacteristic(characteristic);
-                        }
-                        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                            mNotifyCharacteristic = characteristic;
-                            mBluetoothLeService.setCharacteristicNotification(
-                                    characteristic, true);
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-            };
-
     private void clearUI() {
-        mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
-//        mDataField.setText("No data");
         mDataView.setText("No data");
     }
 
@@ -188,8 +137,6 @@ public class DeviceActivity extends Fragment {
                                     mGattCharacteristics.get(2).get(0);
                             final int charaProp = characteristic.getProperties();
                             if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-                                // If there is an active notification on a characteristic, clear
-                                // it first so it doesn't update the data field on the user interface.
                                 if (mNotifyCharacteristic != null) {
                                     mBluetoothLeService.setCharacteristicNotification(
                                             mNotifyCharacteristic, false);
@@ -210,12 +157,7 @@ public class DeviceActivity extends Fragment {
         connectBtn.setOnClickListener(cl);
         dataBtn.setOnClickListener(cl);
 
-        // Sets up UI references.
-//        ((TextView) view.findViewById(R.id.device_selected_name)).setText(mDeviceName);
-        mGattServicesList = (ExpandableListView) view.findViewById(R.id.gatt_services_list);
-        mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) view.findViewById(R.id.device_connection_state);
-//        mDataField = (TextView) view.findViewById(R.id.thu_pill);
         mDataView = (TextView) view.findViewById(R.id.device_data);
 
         getParentFragmentManager().setFragmentResultListener("device_selected", this, new FragmentResultListener() {
@@ -305,7 +247,6 @@ public class DeviceActivity extends Fragment {
 
     private void displayData(String data) {
         if (data != null) {
-//            mDataField.setText(data);
             mDataView.setText(data);
         }
     }
@@ -331,9 +272,6 @@ public class DeviceActivity extends Fragment {
         }
     }
 
-    // Demonstrates how to iterate through the supported GATT Services/Characteristics.
-    // In this sample, we populate the data structure that is bound to the ExpandableListView
-    // on the UI.
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
         String uuid = null;
@@ -344,7 +282,6 @@ public class DeviceActivity extends Fragment {
                 = new ArrayList<ArrayList<HashMap<String, String>>>();
         mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
 
-        // Loops through available GATT Services.
         for (BluetoothGattService gattService : gattServices) {
             HashMap<String, String> currentServiceData = new HashMap<String, String>();
             uuid = gattService.getUuid().toString();
@@ -360,7 +297,6 @@ public class DeviceActivity extends Fragment {
             ArrayList<BluetoothGattCharacteristic> charas =
                     new ArrayList<BluetoothGattCharacteristic>();
 
-            // Loops through available Characteristics.
             for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                 charas.add(gattCharacteristic);
                 HashMap<String, String> currentCharaData = new HashMap<String, String>();
@@ -373,19 +309,6 @@ public class DeviceActivity extends Fragment {
             mGattCharacteristics.add(charas);
             gattCharacteristicData.add(gattCharacteristicGroupData);
         }
-
-//        SimpleExpandableListAdapter gattServiceAdapter = new SimpleExpandableListAdapter(
-//                getActivity(),
-//                gattServiceData,
-//                android.R.layout.simple_expandable_list_item_2,
-//                new String[] {LIST_NAME, LIST_UUID},
-//                new int[] { android.R.id.text1, android.R.id.text2 },
-//                gattCharacteristicData,
-//                android.R.layout.simple_expandable_list_item_2,
-//                new String[] {LIST_NAME, LIST_UUID},
-//                new int[] { android.R.id.text1, android.R.id.text2 }
-//        );
-//        mGattServicesList.setAdapter(gattServiceAdapter);
     }
 
     private static IntentFilter makeGattUpdateIntentFilter() {

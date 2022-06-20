@@ -4,7 +4,6 @@ import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
 
 @Xml(name = "item")
-//@Root(name = "item", strict = false)
 public class ItemClass {
     @PropertyElement(name="addr")
     String addr;

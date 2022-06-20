@@ -40,7 +40,6 @@ public class MapPharmacyListActivity extends Fragment {
     RecyclerView recyclerView;
     PharmacyAdapter adapter;
 
-    //retrofit 관련
     Retrofit retrofit;
     PharmacyAPI service;
     String serviceKey_origin = "J%2FS0JBdWnrQa9KR69M9AJHWjQwTch0%2F20l8%2BdpQ5wH8sMuKGfYlihZjIxwDCPjVBF9JUeaTeJr1xEhbDvcL%2BWw%3D%3D";
@@ -105,7 +104,6 @@ public class MapPharmacyListActivity extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        //retrofit 시작
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl(PharmacyAPI.baseURL)
@@ -134,7 +132,6 @@ public class MapPharmacyListActivity extends Fragment {
         } catch (Exception e) {
             Log.e("약국 Exception", e.getMessage());
         }
-        //retrofit 끝
         return view;
     }
 }

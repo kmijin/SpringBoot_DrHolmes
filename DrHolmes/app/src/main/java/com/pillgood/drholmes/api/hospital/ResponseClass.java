@@ -5,7 +5,6 @@ import com.tickaroo.tikxml.annotation.Element;
 import com.tickaroo.tikxml.annotation.Xml;
 
 @Xml(name = "response")
-//@Root(name="response", strict = false)
 public class ResponseClass {
     @Element(name = "header")
     HeaderClass header;

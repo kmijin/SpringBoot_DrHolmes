@@ -40,7 +40,6 @@ public class MapHospitalListActivity extends Fragment {
     RecyclerView recyclerView;
     HospitalAdapter adapter;
 
-    //retrofit 관련
     Retrofit retrofit;
     HospitalAPI service;
     String serviceKey_origin = "J%2FS0JBdWnrQa9KR69M9AJHWjQwTch0%2F20l8%2BdpQ5wH8sMuKGfYlihZjIxwDCPjVBF9JUeaTeJr1xEhbDvcL%2BWw%3D%3D";
@@ -105,7 +104,6 @@ public class MapHospitalListActivity extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        //retrofit 시작
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl(HospitalAPI.baseURL)
@@ -134,7 +132,6 @@ public class MapHospitalListActivity extends Fragment {
         } catch (Exception e) {
             Log.e("병원 Exception", e.getMessage());
         }
-        //retrofit 끝
         return view;
     }
 }

@@ -5,7 +5,6 @@ import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
 
 @Xml(name = "body")
-//@Root(name = "body", strict = false)
 public class BodyClass {
     @Element(name="items")
     ItemsClass items;

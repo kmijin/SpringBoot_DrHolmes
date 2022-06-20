@@ -98,19 +98,6 @@ public class PillAdapter extends RecyclerView.Adapter<PillAdapter.ViewHolder> {
         }
 
         public void setItem(Pill item) {
-//            new Thread(() -> {
-//                try {
-//                    URLConnection conn = null;
-//                    conn = new URL(item.getIcon()).openConnection();
-//                    conn.connect();
-//                    Bitmap img = BitmapFactory.decodeStream(new BufferedInputStream(conn.getInputStream(), conn.getContentLength()));
-//                    ivPillIcon.setImageBitmap(img);
-//                }
-//                catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }).start();
-
             new DrawUrlImageTask(ivPillIcon).execute(item.getIcon());
 
             tvPillName.setText(item.getName());
@@ -146,7 +133,6 @@ public class PillAdapter extends RecyclerView.Adapter<PillAdapter.ViewHolder> {
                     e.printStackTrace();
                 }
             }
-
             return bitmap;
         }
 

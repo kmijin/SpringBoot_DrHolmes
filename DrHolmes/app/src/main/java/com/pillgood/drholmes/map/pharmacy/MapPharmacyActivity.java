@@ -34,7 +34,6 @@ public class MapPharmacyActivity extends Fragment {
         };
 
         listButton.setOnClickListener(cl);
-        // Inflate the layout for this fragment
         return view;
     }
 }

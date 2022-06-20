@@ -18,8 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.pillgood.drholmes.MainActivity;
 import com.pillgood.drholmes.R;
-import com.pillgood.drholmes.api.JSONRetrofitAPI;
-import com.pillgood.drholmes.api.login.Post;
+import com.pillgood.drholmes.api.UserAPI;
+import com.pillgood.drholmes.api.login.UserClass;
 
 import java.util.List;
 
@@ -32,8 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends Activity {
     //retrofit 관련
     Retrofit retrofit;
-    JSONRetrofitAPI service;
-    List<Post> posts;
+    UserAPI service;
+    List<UserClass> userClasses;
 
 
     @Override
@@ -106,19 +106,19 @@ public class LoginActivity extends Activity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        service = retrofit.create(JSONRetrofitAPI.class);
+        service = retrofit.create(UserAPI.class);
 
         //loginRequest에 사용자가 입력한 id와 pw를 저장
-        Post post = new Post(
+        UserClass userClass = new UserClass(
                 id,
                 pw
         );
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        service.userLogin(post).enqueue(new Callback<List<Post>>() {
+        service.userLogin(userClass).enqueue(new Callback<List<UserClass>>() {
 
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<UserClass>> call, Response<List<UserClass>> response) {
 
                 Log.d("retrofit", "Data fetch success");
 
@@ -131,7 +131,7 @@ public class LoginActivity extends Activity {
                     LoginActivity.this.finish();
 
 //                    //response.body()를 result에 저장
-//                    Post result = response.body();
+//                    UserClass result = response.body();
 //
 //                    //받은 코드 저장
 //                    String resultCode = result.getResultCode();
@@ -193,7 +193,7 @@ public class LoginActivity extends Activity {
 
             //통신 실패
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<UserClass>> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
