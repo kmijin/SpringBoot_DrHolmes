@@ -1,4 +1,4 @@
-# Dr.Holmes
+### Dr.Holmes
 아두이노 보드를 활용한 알약 복용 도우미
 
 ### Figma (UI)
