@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 a84b8645aae2001635b2bf67f43e5f38aeb20b8e 김미진 <alwls0808@gmail.com> 1663290739 +0900	commit (initial): server code
+a84b8645aae2001635b2bf67f43e5f38aeb20b8e 59a6487c4b0134c33118cbbcce912f5a33b7cd9b 김미진 <alwls0808@gmail.com> 1663290926 +0900	pull origin master --allow-unrelated-histories: Merge made by the 'ort' strategy.
+59a6487c4b0134c33118cbbcce912f5a33b7cd9b 02778ecb634d78ad09b010dddbf0a08abf665140 김미진 <alwls0808@gmail.com> 1663294144 +0900	commit: Pill, DB연동 설정
+02778ecb634d78ad09b010dddbf0a08abf665140 15f522b47fce297bb384c148141b60e616719706 김미진 <alwls0808@gmail.com> 1663321115 +0900	commit: Pill, DB연동 설정
+15f522b47fce297bb384c148141b60e616719706 b577172b52185f6c800f2f5548795503783d2e39 김미진 <alwls0808@gmail.com> 1663321162 +0900	commit: push
+b577172b52185f6c800f2f5548795503783d2e39 7b48371b2e49b04f02cae18bf0a0f8090618febc 김미진 <alwls0808@gmail.com> 1663321209 +0900	pull --no-stat -v --progress origin mijin: Merge made by the 'ort' strategy.
+7b48371b2e49b04f02cae18bf0a0f8090618febc 283f418129cca47e62a03af7f554966f981cd7c8 김미진 <alwls0808@gmail.com> 1663898362 +0900	commit: user 정보 입력 & SNS 로그인 설정 작성 중
