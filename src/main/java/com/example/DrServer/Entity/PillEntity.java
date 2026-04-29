@@ -3,7 +3,7 @@ package com.example.DrServer.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pill_state")
