@@ -3,11 +3,11 @@ package com.example.DrServer.SocialLogin;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)//기본 생성자 만들어 줌
-@DynamicUpdate//update할 때 실제 값이 변경됨
-@Entity //JPA Entity 임을 명시
+@NoArgsConstructor(access = AccessLevel.PROTECTED)//ê¸°ë³¸ ìì±ì ë§ë¤ì´ ì¤
+@DynamicUpdate//updateí  ë ì¤ì  ê°ì´ ë³ê²½ë¨
+@Entity //JPA Entity ìì ëªì
 @Table(name = "kakao_user")
 //@Data
 //@AllArgsConstructor
@@ -30,7 +30,7 @@ public class KakaoEntity {
     @Column(name = "nickname", nullable = true, unique = true)
     private String nickname;
 
-    @Builder //생성을 Builder 패턴으로 하기 위해서
+    @Builder //ìì±ì Builder í¨í´ì¼ë¡ íê¸° ìí´ì
     public KakaoEntity(String id, String name, String email, String provider, String nickname) {
         this.id = id;
         this.name = name;
