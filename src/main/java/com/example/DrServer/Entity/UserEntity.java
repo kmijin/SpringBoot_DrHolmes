@@ -1,11 +1,11 @@
 package com.example.DrServer.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Entity //추
+@Entity //ì¶
 public class UserEntity {
-    @Id //추
+    @Id //ì¶
     private String userId;
     private String userPassword;
     private String userName;
