@@ -3,7 +3,7 @@ package com.example.DrServer.SocialLogin;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)//기본 생성자 만들어 줌
 @DynamicUpdate//update할 때 실제 값이 변경됨
